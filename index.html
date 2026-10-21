@@ -1,1 +1,575 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+
+<title>THE EAGLE⁰⁹ | EV Loader</title>
+
+<style>
+:root {
+  --bg: #080808;
+  --panel: #111111;
+  --gold: #efb934;
+  --gold-light: #ffe6a0;
+  --text: #f8f8f8;
+  --muted: #929292;
+  --border: rgba(239,185,52,.24);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  padding: 25px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 50% 0%,
+      rgba(177,119,20,.13), transparent 45%),
+    linear-gradient(145deg,#060606,#111 50%,#050505);
+}
+
+.page {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* BRAND HEADER */
+
+.brand {
+  text-align: center;
+  margin-bottom: 27px;
+}
+
+.brand-symbol {
+  width: 66px;
+  height: 66px;
+  margin: 0 auto 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  color: var(--gold);
+  background: linear-gradient(145deg,#29200e,#101010);
+  border: 1px solid rgba(239,185,52,.42);
+  border-radius: 19px;
+  box-shadow: 0 0 30px rgba(239,185,52,.09);
+}
+
+.brand-name {
+  font-size: 23px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.brand-name span {
+  color: var(--gold);
+  font-size: 14px;
+  vertical-align: super;
+  letter-spacing: 0;
+}
+
+.brand-sub {
+  margin-top: 10px;
+  color: #858585;
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+/* MAIN CARD */
+
+.card {
+  position: relative;
+  padding: 30px 22px 23px;
+  overflow: hidden;
+  text-align: center;
+  background: linear-gradient(145deg,#171717,#0d0d0d);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 25px 65px rgba(0,0,0,.4);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15%;
+  width: 70%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,transparent,var(--gold),transparent
+  );
+}
+
+.eyebrow {
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+h1 {
+  margin-top: 17px;
+  font-size: 29px;
+  line-height: 1.25;
+  font-weight: 900;
+}
+
+h1 span {
+  color: var(--gold);
+}
+
+.description {
+  margin-top: 13px;
+  color: #a3a3a3;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  padding: 10px 16px;
+  color: var(--gold-light);
+  background: rgba(239,185,52,.07);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.unlock-btn {
+  width: 100%;
+  margin-top: 25px;
+  padding: 17px 10px;
+  color: #171107;
+  background: linear-gradient(110deg,#c58b18,#ffe08a,#e9ae2a);
+  border: 1px solid #ffdc7c;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(239,185,52,.12);
+  transition: .2s;
+}
+
+.unlock-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(239,185,52,.23);
+}
+
+.unlock-btn:active {
+  transform: scale(.98);
+}
+
+.unlock-btn:disabled {
+  opacity: .6;
+  cursor: wait;
+  transform: none;
+}
+
+/* TIMER */
+
+#timer {
+  display: none;
+  margin-top: 20px;
+  padding: 18px;
+  background: #090909;
+  border: 1px solid #292929;
+  border-radius: 12px;
+}
+
+.timer-label {
+  color: #999;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+#seconds {
+  display: block;
+  margin-top: 9px;
+  color: var(--gold);
+  font-size: 35px;
+  font-weight: 900;
+}
+
+.progress-track {
+  height: 4px;
+  margin-top: 13px;
+  overflow: hidden;
+  background: #292929;
+  border-radius: 10px;
+}
+
+#progress {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,#b57a12,#ffe6a0);
+  transition: width 1s linear;
+}
+
+/* FEATURES */
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 9px;
+  margin-top: 23px;
+}
+
+.feature {
+  padding: 15px 3px;
+  background: rgba(255,255,255,.025);
+  border: 1px solid #292929;
+  border-radius: 12px;
+}
+
+.feature-icon {
+  margin-bottom: 10px;
+  font-size: 21px;
+}
+
+.feature-text {
+  color: #bdbdbd;
+  font-size: 9px;
+  font-weight: bold;
+  letter-spacing: .3px;
+}
+
+/* FOOTER */
+
+.footer {
+  margin-top: 23px;
+  color: #686868;
+  text-align: center;
+  font-size: 10px;
+  line-height: 1.9;
+  letter-spacing: 1px;
+}
+
+.footer strong {
+  color: #c99b37;
+}
+
+/* POPUP */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0,0,0,.86);
+  backdrop-filter: blur(8px);
+}
+
+.modal-box {
+  width: 100%;
+  max-width: 370px;
+  padding: 27px 21px;
+  text-align: center;
+  background: linear-gradient(145deg,#1b1b1b,#0b0b0b);
+  border: 1px solid rgba(239,185,52,.4);
+  border-radius: 18px;
+  box-shadow: 0 0 40px rgba(239,185,52,.08);
+  animation: appear .25s ease-out;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.success-icon {
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  background: rgba(239,185,52,.08);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  font-size: 28px;
+}
+
+.modal-box h2 {
+  font-size: 22px;
+}
+
+.modal-subtitle {
+  margin-top: 10px;
+  color: #999;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.key {
+  margin: 22px 0 15px;
+  padding: 16px 10px;
+  color: var(--gold-light);
+  background: #050505;
+  border: 1px dashed rgba(239,185,52,.4);
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+
+.copy-btn,.close-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.copy-btn {
+  color: #171107;
+  background: linear-gradient(110deg,#c58b18,#ffe08a);
+  border: 0;
+}
+
+.close-btn {
+  margin-top: 10px;
+  color: #ccc;
+  background: #202020;
+  border: 1px solid #333;
+}
+
+#copied {
+  display: none;
+  margin-top: 13px;
+  color: #73e7a7;
+  font-size: 12px;
+}
+
+@media(max-width:360px) {
+  .card { padding: 25px 15px; }
+  h1 { font-size: 25px; }
+  .brand-name { font-size: 21px; }
+  .feature-text { font-size: 8px; }
+}
+</style>
+</head>
+
+<body>
+
+<main class="page">
+
+  <header class="brand">
+    <div class="brand-symbol">♛</div>
+
+    <div class="brand-name">
+      THE EAGLE<span>09</span>
+    </div>
+
+    <div class="brand-sub">
+      OFFICIAL GAMING BRAND
+    </div>
+  </header>
+
+  <section class="card">
+
+    <div class="eyebrow">
+      ✦ &nbsp; PREMIUM ACCESS PORTAL
+    </div>
+
+    <h1>EV <span>LOADER</span></h1>
+
+    <p class="description">
+      Welcome to THE EAGLE⁰⁹.<br>
+      Your key access starts here.
+    </p>
+
+    <div class="badge">
+      ✦ &nbsp; FREE KEY ACCESS
+    </div>
+
+    <button class="unlock-btn" id="unlockBtn"
+      onclick="startUnlock()">
+      🔓 &nbsp; UNLOCK YOUR KEY
+    </button>
+
+    <div id="timer" aria-live="polite">
+      <div class="timer-label">PREPARING YOUR KEY</div>
+      <span id="seconds">5</span>
+      <div class="progress-track">
+        <div id="progress"></div>
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-text">QUICK ACCESS</div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🔑</div>
+        <div class="feature-text">KEY DISPLAY</div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">📋</div>
+        <div class="feature-text">EASY COPY</div>
+      </div>
+    </div>
+
+  </section>
+
+  <footer class="footer">
+    POWERED BY <strong>THE EAGLE⁰⁹</strong><br>
+    EV LOADER · SIMPLE. FAST. EASY.
+  </footer>
+
+</main>
+
+<div class="modal" id="keyModal"
+  role="dialog" aria-modal="true"
+  aria-labelledby="modalTitle">
+
+  <div class="modal-box">
+
+    <div class="success-icon">✓</div>
+
+    <h2 id="modalTitle">KEY UNLOCKED!</h2>
+
+    <p class="modal-subtitle">
+      Your access key is ready.<br>
+      Copy it below.
+    </p>
+
+    <div class="key" id="keyText">EV-IS-UPDATED</div>
+
+    <button class="copy-btn" id="copyBtn"
+      onclick="copyKey()">
+      📋 &nbsp; COPY KEY
+    </button>
+
+    <button class="close-btn" onclick="closePopup()">
+      CLOSE
+    </button>
+
+    <p id="copied" role="status" aria-live="polite">
+      ✓ Key copied successfully!
+    </p>
+
+  </div>
+</div>
+
+<script>
+let countdown = null;
+let busy = false;
+
+function startUnlock() {
+  if (busy) return;
+  busy = true;
+
+  const button = document.getElementById("unlockBtn");
+  const timer = document.getElementById("timer");
+  const secondsText = document.getElementById("seconds");
+  const progress = document.getElementById("progress");
+
+  let seconds = 5;
+
+  button.disabled = true;
+  button.textContent = "PLEASE WAIT...";
+  timer.style.display = "block";
+  secondsText.textContent = seconds;
+  progress.style.width = "100%";
+
+  countdown = setInterval(function() {
+    seconds--;
+    secondsText.textContent = seconds;
+    progress.style.width = (seconds / 5 * 100) + "%";
+
+    if (seconds <= 0) {
+      clearInterval(countdown);
+      countdown = null;
+
+      timer.style.display = "none";
+      document.getElementById("keyModal").style.display = "flex";
+      document.getElementById("copyBtn").focus();
+
+      busy = false;
+      button.disabled = false;
+      button.innerHTML = "🔓 &nbsp; UNLOCK YOUR KEY";
+    }
+  }, 1000);
+}
+
+async function copyKey() {
+  const key = document.getElementById("keyText").textContent.trim();
+  const copied = document.getElementById("copied");
+  const button = document.getElementById("copyBtn");
+
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(key);
+    } else {
+      const area = document.createElement("textarea");
+      area.value = key;
+      area.style.position = "fixed";
+      area.style.opacity = "0";
+      document.body.appendChild(area);
+      area.select();
+
+      const success = document.execCommand("copy");
+      area.remove();
+
+      if (!success) throw new Error("Copy failed");
+    }
+
+    copied.textContent = "✓ Key copied successfully!";
+    copied.style.display = "block";
+    button.textContent = "✓ COPIED!";
+  } catch (error) {
+    copied.textContent = "Select the key above and copy it manually.";
+    copied.style.display = "block";
+  }
+}
+
+function closePopup() {
+  document.getElementById("keyModal").style.display = "none";
+  document.getElementById("copied").style.display = "none";
+  document.getElementById("copyBtn").textContent = "📋  COPY KEY";
+  document.getElementById("unlockBtn").focus();
+}
+
+document.getElementById("keyModal").addEventListener("click", function(e) {
+  if (e.target === this) closePopup();
+});
+
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") closePopup();
+});
+</script>
+
+</body>
+</html>
